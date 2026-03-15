@@ -11,7 +11,7 @@ REM Verificar que Python esté disponible
 python --version >nul 2>&1
 if errorlevel 1 (
     echo ERROR: Python no está instalado o no está en el PATH
-    pause
+    REM pause
     exit /b 1
 )
 
@@ -22,7 +22,7 @@ if errorlevel 1 (
     pip install pyinstaller
     if errorlevel 1 (
         echo ERROR: No se pudo instalar PyInstaller
-        pause
+        REM pause
         exit /b 1
     )
 )
@@ -39,7 +39,7 @@ if exist "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" (
     echo O modifica este script con la ruta correcta a ISCC.exe
     echo.
     echo Continuando sin crear el instalador. El ejecutable ya está en dist\MultiMinecraft.exe
-    pause
+    REM pause
     exit /b 0
 )
 
@@ -54,7 +54,7 @@ echo [2/3] Ejecutando PyInstaller...
 python -m PyInstaller MultiMinecraft.spec
 if errorlevel 1 (
     echo ERROR: PyInstaller falló
-    pause
+    REM pause
     exit /b 1
 )
 
@@ -63,7 +63,7 @@ echo [3/3] Compilando instalador con Inno Setup...
 call "%INNO_SETUP_PATH%" setup.iss
 if errorlevel 1 (
     echo ERROR: La compilación del instalador falló
-    pause
+    REM pause
     exit /b 1
 )
 

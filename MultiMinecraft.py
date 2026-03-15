@@ -1415,9 +1415,13 @@ def mostrar_ventana_nueva_version(version):
         # La versión se puede ingresar manualmente en el campo
     
     boton_crear = ctk.CTkButton(frame_botones_interno, text="Crear Instancia", 
-                               command=crear_instancia_nueva_version,
-                               width=120, height=35, fg_color=COLOR_BOTONES, 
-                               hover_color=COLOR_BOTONES_HOVER, text_color=COLOR_TEXTO)
+                                   command=crear_instancia_nueva_version,
+                                   width=120, height=35,
+                                   fg_color="transparent",
+                                   hover_color=COLOR_BOTONES_HOVER,
+                                   text_color="white",
+                                   border_width=2,
+                                   border_color="white")
     boton_crear.pack(side="left", padx=(0, 10))
     
     # Botón más tarde
@@ -1500,8 +1504,8 @@ def mostrar_mensaje_oscuro(titulo, mensaje, tipo="info"):
         ventana_mensaje.destroy()
     
     boton_aceptar = ctk.CTkButton(frame_principal, text="Aceptar", command=cerrar_mensaje, width=120, height=40, 
-                                 font=ctk.CTkFont(size=14, weight="bold"), fg_color=COLOR_BOTONES, 
-                                 hover_color=COLOR_BOTONES_HOVER, text_color=COLOR_TEXTO)
+                                 font=ctk.CTkFont(size=14, weight="bold"), fg_color="transparent", 
+                                 hover_color=COLOR_BOTONES_HOVER, text_color="white", border_width=2, border_color="white")
     boton_aceptar.pack()
     
     # Centrar la ventana en la pantalla
@@ -1970,77 +1974,77 @@ titulo_lateral.place(x=125, y=30, anchor="center")
 bt_crear_instancia = ctk.CTkButton(
     panel_lateral, 
     text="+ Crear Instancia", 
-    width=200, 
-    height=45,
+    width=160, 
+    height=35,
     font=ctk.CTkFont(size=15, weight="bold"),
-    fg_color=COLOR_BOTONES,
+    fg_color="transparent",
     hover_color=COLOR_BOTONES_HOVER,
     corner_radius=10,
-    border_width=1,
-    border_color=COLOR_BOTONES_BORDE,
-    text_color=COLOR_TEXTO
+    border_width=2,
+    border_color="white",
+    text_color="white"
 )
-bt_crear_instancia.place(x=25, y=100)
+bt_crear_instancia.place(x=125, y=100, anchor="center")
 
 bt_jugar = ctk.CTkButton(
     panel_lateral, 
     text="▶ Jugar", 
-    width=200, 
-    height=45,
+    width=160, 
+    height=35,
     font=ctk.CTkFont(size=15, weight="bold"),
-    fg_color=COLOR_BOTONES,
+    fg_color="transparent",
     hover_color=COLOR_BOTONES_HOVER,
     corner_radius=10,
-    border_width=1,
-    border_color=COLOR_BOTONES_BORDE,
-    text_color=COLOR_TEXTO
+    border_width=2,
+    border_color="white",
+    text_color="white"
 )
-bt_jugar.place(x=25, y=160)
+bt_jugar.place(x=125, y=160, anchor="center")
 
 bt_editar = ctk.CTkButton(
     panel_lateral, 
     text="✏ Modificar", 
-    width=200, 
-    height=45,
+    width=160, 
+    height=35,
     font=ctk.CTkFont(size=15, weight="bold"),
-    fg_color=COLOR_BOTONES,
+    fg_color="transparent",
     hover_color=COLOR_BOTONES_HOVER,
     corner_radius=10,
-    border_width=1,
-    border_color=COLOR_BOTONES_BORDE,
-    text_color=COLOR_TEXTO
+    border_width=2,
+    border_color="white",
+    text_color="white"
 )
-bt_editar.place(x=25, y=220)
+bt_editar.place(x=125, y=220, anchor="center")
 
 bt_recursos = ctk.CTkButton(
     panel_lateral, 
     text="📦 Recursos", 
-    width=200, 
-    height=45,
+    width=160, 
+    height=35,
     font=ctk.CTkFont(size=15, weight="bold"),
-    fg_color=COLOR_BOTONES,
+    fg_color="transparent",
     hover_color=COLOR_BOTONES_HOVER,
     corner_radius=10,
-    border_width=1,
-    border_color=COLOR_BOTONES_BORDE,
-    text_color=COLOR_TEXTO
+    border_width=2,
+    border_color="white",
+    text_color="white"
 )
-bt_recursos.place(x=25, y=280)
+bt_recursos.place(x=125, y=280, anchor="center")
 
 bt_eliminar = ctk.CTkButton(
     panel_lateral, 
     text="🗑 Eliminar", 
-    width=200, 
-    height=45,
+    width=160, 
+    height=35,
     font=ctk.CTkFont(size=15, weight="bold"),
-    fg_color=COLOR_BOTONES,
+    fg_color="transparent",
     hover_color=COLOR_BOTONES_HOVER,
     corner_radius=10,
-    border_width=1,
-    border_color=COLOR_BOTONES_BORDE,
-    text_color=COLOR_TEXTO
+    border_width=2,
+    border_color="white",
+    text_color="white"
 )
-bt_eliminar.place(x=25, y=340)
+bt_eliminar.place(x=125, y=340, anchor="center")
 
 # Logo Monkey Studio en la parte inferior del panel lateral
 logo_path = get_resource_path("Resources/LogoMS.png")
@@ -2327,6 +2331,7 @@ def crear_icono_instancia(instancia, x, y):
         
         # Actualizar el estado de los botones
         actualizar_estado_botones()
+        # No actualizar panel lateral con detalles de instancia
     
     # Hacer clickeable el frame
     frame_icono.bind("<Button-1>", lambda e: seleccionar_instancia())
@@ -2649,7 +2654,7 @@ def editar_instancia():
             mostrar_mensaje_oscuro("Error", f"No se pudo actualizar la instancia: {e}", "error")
 
     bt_guardar = ctk.CTkButton(frame_contenido, text="Guardar cambios", command=guardar_cambios,
-                              fg_color=COLOR_BOTONES, hover_color=COLOR_BOTONES_HOVER, text_color=COLOR_TEXTO, width=150)
+                              fg_color="transparent", hover_color=COLOR_BOTONES_HOVER, text_color="white", border_width=2, border_color="white", width=150)
     bt_guardar.pack(pady=(20, 5), anchor="center")
 
     barra_progreso = ctk.CTkProgressBar(frame_contenido, fg_color=COLOR_BOTONES, progress_color=COLOR_BOTONES_HOVER)
@@ -2978,11 +2983,11 @@ def crear_multiples_instancias():
     frame_botones.pack(fill="x", pady=(0, 10))
     
     bt_agregar = ctk.CTkButton(frame_botones, text="➕ Agregar Instancia", command=agregar_instancia,
-                              fg_color=COLOR_BOTONES, hover_color=COLOR_BOTONES_HOVER, text_color=COLOR_TEXTO)
+                            fg_color=COLOR_BOTONES, hover_color=COLOR_BOTONES_HOVER, text_color=COLOR_TEXTO)
     bt_agregar.pack(side="left", padx=(0, 10))
     
     bt_crear = ctk.CTkButton(frame_botones, text="🚀 Crear Todas", command=crear_todas_instancias,
-                           fg_color=COLOR_BOTONES, hover_color=COLOR_BOTONES_HOVER, text_color=COLOR_TEXTO)
+                            fg_color=COLOR_BOTONES, hover_color=COLOR_BOTONES_HOVER, text_color=COLOR_TEXTO)
     bt_crear.pack(side="left")
     
     # Barra de progreso
@@ -3867,8 +3872,8 @@ def crear_instancia():
             bt_guardar.configure(text="Crear", state="normal")
 
     bt_guardar = ctk.CTkButton(frame_contenido, text="Crear", command=guardar_instancia,
-                               fg_color=COLOR_BOTONES, hover_color=COLOR_BOTONES_HOVER,
-                               text_color=COLOR_TEXTO, border_color=COLOR_BOTONES_BORDE, border_width=1, width=150)
+                               fg_color="transparent", hover_color=COLOR_BOTONES_HOVER,
+                               text_color="white", border_color="white", border_width=2, width=150)
     bt_guardar.pack(pady=(20, 5))
 
     # Frame contenedor para centrar la barra de progreso
