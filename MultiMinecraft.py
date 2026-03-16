@@ -1436,7 +1436,7 @@ def mostrar_ventana_nueva_version(version):
                                 command=ventana_nueva_version.destroy,
                                 width=100, height=30, fg_color=COLOR_BOTONES, 
                                 hover_color=COLOR_BOTONES_HOVER, text_color=COLOR_TEXTO)
-    boton_cerrar.pack(pady=(10, 0))
+    boton_cerrar
 
 def verificar_versiones_en_background():
     """Verifica nuevas versiones en segundo plano"""
@@ -1961,9 +1961,20 @@ def configurar_icono_ventana(ventana_modal):
     return icono_cargado_modal
 
 # Crear panel lateral izquierdo
-panel_lateral = ctk.CTkFrame(ventana, width=250, height=580, fg_color=COLOR_PANEL_LATERAL,
+# Crear panel superior
+panel_superior = ctk.CTkFrame(ventana, width=880, height=60, fg_color=COLOR_PANEL_LATERAL,
+                             border_width=2, border_color="white", corner_radius=15)
+panel_superior.place(x=10, y=10)
+
+# Texto de bienvenida en el panel superior
+label_superior = ctk.CTkLabel(panel_superior, text="MultiMinecraft Launcher",
+                              font=ctk.CTkFont(size=20, weight="bold"), text_color="white")
+label_superior.place(x=440, y=30, anchor="center")
+panel_lateral = ctk.CTkFrame(ventana, width=250, height=500, fg_color=COLOR_PANEL_LATERAL,
                              border_width=2, border_color=COLOR_BORDE, corner_radius=15)
-panel_lateral.place(x=10, y=10)
+# Mover panel lateral hacia abajo para dejar espacio al panel superior
+panel_lateral.place(x=10, y=80)
+panel_lateral.place(x=10, y=80)
 
 # Título en el panel lateral
 titulo_lateral = ctk.CTkLabel(panel_lateral, text="MultiMinecraft", 
@@ -2079,7 +2090,7 @@ if os.path.exists(logo_path):
         logo_image = ctk.CTkImage(light_image=pil_image, dark_image=pil_image, size=(nuevo_ancho, nuevo_alto))
         label_logo = ctk.CTkLabel(panel_lateral, image=logo_image, text="")
         label_logo.image = logo_image
-        label_logo.place(x=125, y=500, anchor="center")   #posicion y=500 para que quepa en el panel de 250px
+        label_logo.place(x=125, y=430, anchor="center")   #posicion y=500 para que quepa en el panel de 250px
         print(f"✅ Logo cargado con PIL: {nuevo_ancho}x{nuevo_alto}")
         logo_cargado = True
     except Exception as e:
@@ -2141,12 +2152,16 @@ else:
 # Texto Monkey Studio siempre visible en la parte inferior del panel lateral
 label_usuario = ctk.CTkLabel(panel_lateral, text="Monkey Studio", 
                             font=ctk.CTkFont(size=12))
-label_usuario.place(x=125, y=550, anchor="center")
+label_usuario.place(x=125, y=480, anchor="center")
 
-# Área principal de contenido (derecha)
-area_principal = ctk.CTkFrame(ventana, width=620, height=580, fg_color=COLOR_AREA_PRINCIPAL,
+#*****************************************************************************
+# Panel de istancias Área principal de contenido (derecha)
+
+area_principal = ctk.CTkFrame(ventana, width=620, height=500, fg_color=COLOR_AREA_PRINCIPAL,
                               border_width=2, border_color=COLOR_BORDE, corner_radius=15)
-area_principal.place(x=270, y=10)
+# Mover panel principal hacia abajo para dejar espacio al panel superior
+area_principal.place(x=270, y=80)
+area_principal.place(x=270, y=80)
 
 # Barra de progreso principal
 barra_progreso_principal = ctk.CTkProgressBar(ventana, width=880, height=8, fg_color=COLOR_BOTONES, progress_color=COLOR_BOTONES_HOVER)
@@ -2575,7 +2590,7 @@ def editar_instancia():
                 pass
         
         # Validar que los widgets aún existen antes de acceder a ellos
-        if not widget_exists_safe(entry_nombre_inst) or not widget_exists_safe(entry_usuario_inst) or not widget_exists_safe(entry_ram_inst):
+        if not (widget_exists_safe(entry_nombre_inst) or not widget_exists_safe(entry_usuario_inst) or not widget_exists_safe(entry_ram_inst)):
             mostrar_mensaje_oscuro("Error", "Los campos de entrada ya no están disponibles", "error")
             actualizar_progreso_editar(0)
             return
@@ -2654,7 +2669,7 @@ def editar_instancia():
             mostrar_mensaje_oscuro("Error", f"No se pudo actualizar la instancia: {e}", "error")
 
     bt_guardar = ctk.CTkButton(frame_contenido, text="Guardar cambios", command=guardar_cambios,
-                              fg_color="transparent", hover_color=COLOR_BOTONES_HOVER, text_color="white", border_width=2, border_color="white", width=150)
+        fg_color="transparent", hover_color=COLOR_BOTONES_HOVER, text_color="white", border_width=2, border_color="white", width=150)
     bt_guardar.pack(pady=(20, 5), anchor="center")
 
     barra_progreso = ctk.CTkProgressBar(frame_contenido, fg_color=COLOR_BOTONES, progress_color=COLOR_BOTONES_HOVER)
@@ -2883,9 +2898,9 @@ def crear_multiples_instancias():
                         os.path.join(carpeta_instancia, 'config'),
                         os.path.join(carpeta_instancia, 'saves'),
                         os.path.join(carpeta_instancia, 'resourcepacks'),
+                        os.path.join(carpeta_instancia, 'logs'),
                         os.path.join(carpeta_instancia, 'mods'),
-                        os.path.join(carpeta_instancia, 'shaderpacks'),
-                        os.path.join(carpeta_instancia, 'logs')
+                        os.path.join(carpeta_instancia, 'shaderpacks')
                     ]
                     
                     with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
@@ -2931,6 +2946,7 @@ def crear_multiples_instancias():
                 
                 with open(ruta, 'w', encoding='utf-8') as f:
                     json.dump(datos, f, ensure_ascii=False, indent=2)
+            
             except Exception as e:
                 print(f"⚠️ Error creando archivo de configuración: {e}")
                 continue
@@ -3132,6 +3148,7 @@ def iniciar_instancia():
                         # Si no se encuentra, usar la versión base
                         print(f"⚠️ No se detectó versión de Fabric, usando versión base: {version}")
                         version_a_usar = version
+                
                 except Exception as e:
                     print(f"⚠️ Error buscando versión de Fabric: {e}")
                     # Si no se encuentra, usar la versión base
@@ -3558,9 +3575,9 @@ def crear_instancia():
                 os.path.join(carpeta_instancia, 'config'),
                 os.path.join(carpeta_instancia, 'saves'),
                 os.path.join(carpeta_instancia, 'resourcepacks'),
+                os.path.join(carpeta_instancia, 'logs'),
                 os.path.join(carpeta_instancia, 'mods'),
-                os.path.join(carpeta_instancia, 'shaderpacks'),
-                os.path.join(carpeta_instancia, 'logs')
+                os.path.join(carpeta_instancia, 'shaderpacks')
             ]
             
             with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
